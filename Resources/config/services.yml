@@ -1,0 +1,8 @@
+parameters:
+    dakatsuka.blueprint.class: Dakatsuka\BlueprintBundle\Blueprint
+
+services:
+    dakatsuka.blueprint:
+        class: %dakatsuka.blueprint.class%
+        calls:
+            - [ setEntityManager, [@doctrine.orm.entity_manager] ]
