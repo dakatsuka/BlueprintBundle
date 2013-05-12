@@ -23,7 +23,7 @@ namespace Acme\BlogBundle\Tests\Blueprints;
 
 use Dakatsuka\BlueprintBundle\Blueprint;
 
-Blueprint::register('comment', 'Acme\BlogBundle\Entity\Comment', function($coment, $blueprint) {
+Blueprint::register('comment', 'Acme\BlogBundle\Entity\Comment', function($comment, $blueprint) {
     $comment->setPost($blueprint->create('post'));
     $comment->setBody('CommentCommentComment');
 });
