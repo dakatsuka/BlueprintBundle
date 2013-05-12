@@ -2,6 +2,35 @@
 
 The bundle provides a way to manage test data for the Doctrine ORM.
 
+## Installation
+
+Add this lines to your composer.json:
+
+```
+{
+    "require": {
+        "dakatsuka/blueprint-bundle": "dev-master"
+    }
+}
+```
+
+And then execute:
+
+```
+$ php composer.phar install
+```
+
+And import a BlueprintBundle to AppKernel.php:
+
+```php
+if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+    // snip //
+
+    $bundles[] = new Dakatsuka\BlueprintBundle\DakatsukaBlueprintBundle();
+}
+```
+
+
 ## Usage
 
 src/Acme/BlogBundle/Tests/Blueprints/post.php:
