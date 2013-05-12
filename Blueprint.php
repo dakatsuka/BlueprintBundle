@@ -88,6 +88,7 @@ class Blueprint
     {
         $entity = $this->build($name, $params);
 
+        static::$em->persist($entity);
         static::$em->flush();
         static::$em->refresh($entity);
 
@@ -112,8 +113,6 @@ class Blueprint
         $entity = new $className();
         $callback($entity, $this);
         $this->overrideParameters($entity, $params);
-
-        static::$em->persist($entity);
 
         return $entity;
     }
