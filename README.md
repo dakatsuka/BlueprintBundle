@@ -80,6 +80,19 @@ $comment2 = $blueprint->create('comment', array('post' => $post));
 $comment2->getPost()->getTitle(); // Title1
 ```
 
+## Tips
+Nested blueprint (required cascade={"persist"} option):
+
+```php
+Blueprint::register('post', 'Acme\BlogBundle\Entity\Post', function($post, $blueprint) {
+    $post->setTitle('Title'.$blueprint->sequence());
+    $post->setBody('BodyBodyBody');
+    $post->getComments()->add($blueprint->build('comment', array('post' => $post));
+    $post->getComments()->add($blueprint->build('comment', array('post' => $post));
+    $post->getComments()->add($blueprint->build('comment', array('post' => $post));
+});
+```
+
 ## Contributing
 
 1. Fork it
