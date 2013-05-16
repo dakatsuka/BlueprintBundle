@@ -91,6 +91,7 @@ class Blueprint
         static::$em->persist($entity);
         static::$em->flush();
         static::$em->refresh($entity);
+        static::$em->clear($entity);
 
         return $entity;
     }
