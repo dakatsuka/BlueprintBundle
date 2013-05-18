@@ -13,7 +13,10 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "symfony/framework-bundle": "~2.2"
+        "doctrine/orm": "2.4.*@dev"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master@dev"
     },
     "autoload": {
         "psr-0": { "Dakatsuka\\BlueprintBundle": "" }
