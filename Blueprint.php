@@ -3,6 +3,7 @@
 namespace Dakatsuka\BlueprintBundle;
 
 use Doctrine\ORM\EntityManager;
+use Closure;
 
 /**
  * Class Blueprint
@@ -31,7 +32,7 @@ class Blueprint
      *
      * @param string $name
      * @param string $entity
-     * @param Callable $callback
+     * @param Closure $callback
      *
      * inline example:
      *     Blueprint::register('user', 'Acme\DomainBundle\Entity\User', function($user) {
@@ -40,7 +41,7 @@ class Blueprint
      *         $user->setPassword('.....');
      *     });
      */
-    public static function register($name, $entity, Callable $callback)
+    public static function register($name, $entity, Closure $callback)
     {
         static::$blueprints[$name] = array('entity' => '\\'.$entity, 'callback' => $callback);
     }

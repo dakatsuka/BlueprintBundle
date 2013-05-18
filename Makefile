@@ -8,4 +8,4 @@ phpunit:
 	chmod +x phpunit.phar
 
 test:
-	./phpunit.phar -c app
+	./phpunit.phar
