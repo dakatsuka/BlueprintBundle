@@ -6,17 +6,18 @@ The bundle provides a way to manage test data for the Doctrine ORM.
 
 Add this lines to your composer.json:
 
-```
+```json
 {
     "require": {
-        "dakatsuka/blueprint-bundle": "dev-master"
-    }
+        "dakatsuka/blueprint-bundle": "1.0.*@dev"
+    },
+    "minimum-stability": "dev"
 }
 ```
 
 And then execute:
 
-```
+```bash
 $ php composer.phar install
 ```
 
@@ -24,8 +25,6 @@ And import a BlueprintBundle to AppKernel.php:
 
 ```php
 if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-    // snip //
-
     $bundles[] = new Dakatsuka\BlueprintBundle\DakatsukaBlueprintBundle();
 }
 ```
@@ -68,16 +67,16 @@ $blueprint = static::$container->get('dakatsuka.blueprint');
 $blueprint->loadFromDirectory(static::$kernel->getRootDir() . '/../src/Acme/BlogBundle/Tests/Blueprints');
 
 $post = $blueprint->create('post');
-$post->getTitle(); // 'Title1'
-$post->getBody();  // 'BodyBodyBody'
+$this->assertEquals('Title1', $post->getTitle());
+$this->assertEquals('BodyBodyBody', $post->getBody());
 
 $comment = $blueprint->create('comment');
-$comment->getBody();              // 'CommentCommentComment'
-$comment->getPost()->getTitle();  // 'Title2'
+$this->assertEquals('CommentCommentComment', $comment->getBody());
+$this->assertEquals('Title2', $comment->getPost()->getTitle());
 
 // optional
 $comment2 = $blueprint->create('comment', array('post' => $post));
-$comment2->getPost()->getTitle(); // Title1
+$this->assertSame($post, $comment2->getPost());
 ```
 
 ## Tips
@@ -100,6 +99,13 @@ Blueprint::register('post', 'Acme\BlogBundle\Entity\Post', function($post, $blue
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+### Test
+
+```bash
+$ make phpunit
+$ make test
+```
 
 ## Copyright
 
