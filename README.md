@@ -1,4 +1,4 @@
-# Blueprint Bundle
+# Blueprint Bundle [![Build Status](https://secure.travis-ci.org/dakatsuka/BlueprintBundle?branch=master)][travis]
 
 The bundle provides a way to manage test data for the Doctrine ORM.
 
@@ -104,3 +104,5 @@ Blueprint::register('post', 'Acme\BlogBundle\Entity\Post', function($post, $blue
 ## Copyright
 
 Copyright (C) 2013 Dai Akatsuka, released under the MIT License.
+
+[travis]: http://travis-ci.org/dakatsuka/BlueprintBundle
