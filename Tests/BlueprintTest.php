@@ -87,7 +87,7 @@ class BlueprintTest extends \PHPUnit_Framework_TestCase
 
         $blueprint = new Blueprint();
 
-        $post = $blueprint->create('post', [], $em);
+        $post = $blueprint->create('post', array(), $em);
 
         $this->assertInstanceOf('Dakatsuka\BlueprintBundle\Tests\Entity\Post', $post);
         $this->assertRegExp('/^title[0-9]+$/', $post->getTitle());
