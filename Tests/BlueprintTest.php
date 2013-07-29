@@ -6,6 +6,11 @@ use Dakatsuka\BlueprintBundle\Blueprint;
 
 class BlueprintTest extends \PHPUnit_Framework_TestCase
 {
+    protected function tearDown()
+    {
+        \Mockery::close();
+    }
+
     public function testSequence()
     {
         $blueprint = new Blueprint();
@@ -52,10 +57,10 @@ class BlueprintTest extends \PHPUnit_Framework_TestCase
         });
 
         $em = \Mockery::mock('Doctrine\ORM\EntityManager');
-        $em->shouldReceive('persist');
-        $em->shouldReceive('flush');
-        $em->shouldReceive('refresh');
-        $em->shouldReceive('clear');
+        $em->shouldReceive('persist')->once();
+        $em->shouldReceive('flush')->once();
+        $em->shouldReceive('refresh')->once();
+        $em->shouldReceive('detach')->once();
 
         $blueprint = new Blueprint();
         $blueprint->setEntityManager($em);
@@ -65,5 +70,27 @@ class BlueprintTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Dakatsuka\BlueprintBundle\Tests\Entity\Post', $post);
         $this->assertRegExp('/^title[0-9]+$/', $post->getTitle());
         $this->assertEquals('Article', $post->getBody());
+    }
+
+    public function testCreateWithOtherEntityManager()
+    {
+        Blueprint::register('post', 'Dakatsuka\BlueprintBundle\Tests\Entity\Post', function($post, $blueprint) {
+            $post->setTitle('title'.$blueprint->sequence());
+            $post->setBody('Body');
+        });
+
+        $em = \Mockery::mock('Doctrine\ORM\EntityManager');
+        $em->shouldReceive('persist')->once();
+        $em->shouldReceive('flush')->once();
+        $em->shouldReceive('refresh')->once();
+        $em->shouldReceive('detach')->once();
+
+        $blueprint = new Blueprint();
+
+        $post = $blueprint->create('post', [], $em);
+
+        $this->assertInstanceOf('Dakatsuka\BlueprintBundle\Tests\Entity\Post', $post);
+        $this->assertRegExp('/^title[0-9]+$/', $post->getTitle());
+        $this->assertEquals('Body', $post->getBody());
     }
 }

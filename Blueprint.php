@@ -81,18 +81,26 @@ class Blueprint
      *
      * @param string $name
      * @param array $params
+     * @param \Doctrine\ORM\EntityManager $em
      * @return object
      *
      * TODO: Error handling
      */
-    public function create($name, $params = array())
+    public function create($name, $params = array(), EntityManager $em = null)
     {
         $entity = $this->build($name, $params);
 
-        static::$em->persist($entity);
-        static::$em->flush();
-        static::$em->refresh($entity);
-        static::$em->clear($entity);
+        if (is_null($em)) {
+            static::$em->persist($entity);
+            static::$em->flush();
+            static::$em->refresh($entity);
+            static::$em->detach($entity);
+        } else {
+            $em->persist($entity);
+            $em->flush();
+            $em->refresh($entity);
+            $em->detach($entity);
+        }
 
         return $entity;
     }
