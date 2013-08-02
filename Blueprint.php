@@ -94,12 +94,10 @@ class Blueprint
             static::$em->persist($entity);
             static::$em->flush();
             static::$em->refresh($entity);
-            static::$em->detach($entity);
         } else {
             $em->persist($entity);
             $em->flush();
             $em->refresh($entity);
-            $em->detach($entity);
         }
 
         return $entity;

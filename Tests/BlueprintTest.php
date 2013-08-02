@@ -60,7 +60,6 @@ class BlueprintTest extends \PHPUnit_Framework_TestCase
         $em->shouldReceive('persist')->once();
         $em->shouldReceive('flush')->once();
         $em->shouldReceive('refresh')->once();
-        $em->shouldReceive('detach')->once();
 
         $blueprint = new Blueprint();
         $blueprint->setEntityManager($em);
@@ -83,7 +82,6 @@ class BlueprintTest extends \PHPUnit_Framework_TestCase
         $em->shouldReceive('persist')->once();
         $em->shouldReceive('flush')->once();
         $em->shouldReceive('refresh')->once();
-        $em->shouldReceive('detach')->once();
 
         $blueprint = new Blueprint();
 
