@@ -9,9 +9,8 @@ Add this lines to your composer.json:
 ```json
 {
     "require": {
-        "dakatsuka/blueprint-bundle": "1.0.*@dev"
+        "dakatsuka/blueprint-bundle": "1.1.0"
     },
-    "minimum-stability": "dev"
 }
 ```
 
